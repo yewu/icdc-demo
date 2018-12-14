@@ -5,8 +5,6 @@ services:
     command: bash indexd_setup.sh
     networks:
       - devnet
-    ports:
-      - "8080:80"
     volumes:
       - ./apis_configs/indexd_settings.py:/var/www/indexd/local_settings.py
       - ./apis_configs/indexd_creds.json:/var/www/indexd/creds.json
