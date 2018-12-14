@@ -5,7 +5,7 @@ groups: {}
 users:
   cdis:
     admin: True
-  thanhnd@uchicago.edu:
+  nciss.dev@gmail.com:
     admin: True
     projects:
     - auth_id: jnkns
@@ -22,7 +22,7 @@ users:
       privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
     - auth_id: project1
       privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
-  cdis.autotest@gmail.com:
+  wuye@mail.nih.gov:
     admin: True
     projects:
     - auth_id: jnkns
