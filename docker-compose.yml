@@ -1,21 +1,12 @@
 version: '3'
 services:
-  postgres:
-    image: postgres:9.5
-    networks:
-      - devnet
-    volumes:
-      - "psqldata:/var/lib/postgresql/data"
-      - "./scripts/postgres_init.sql:/docker-entrypoint-initdb.d/postgres_init.sql"
-    restart: unless-stopped
-    ports:
-      - 5432:5432
-  indexd-service:
+  indexd:
     image: "quay.io/cdis/indexd:master"
     command: bash indexd_setup.sh
-    container_name: indexd-service
     networks:
       - devnet
+    ports:
+      - "8080:80"
     volumes:
       - ./apis_configs/indexd_settings.py:/var/www/indexd/local_settings.py
       - ./apis_configs/indexd_creds.json:/var/www/indexd/creds.json
@@ -23,10 +14,9 @@ services:
       - ./scripts/indexd_setup.sh:/var/www/indexd/indexd_setup.sh
     depends_on:
       - postgres
-  fence-service:
+  fence:
     image: "quay.io/cdis/fence:master"
     command: bash /var/www/fence/fence_setup.sh
-    container_name: fence-service
     networks:
       - devnet
     volumes:
@@ -35,22 +25,21 @@ services:
       - ./apis_configs/config_helper.py:/var/www/fence/config_helper.py
       - ./apis_configs/fence_credentials.json:/var/www/fence/fence_credentials.json
       - ./apis_configs/user.yaml:/var/www/fence/user.yaml
-      - ./temp_creds/service.crt:/usr/local/share/ca-certificates/cdis-ca.crt
       - ./temp_keys:/fence/keys
       - ./scripts/fence_setup.sh:/var/www/fence/fence_setup.sh
     environment:
       - PYTHONPATH=/var/www/fence
     depends_on:
       - postgres
-  peregrine-service:
-    image: "quay.io/cdis/peregrine:master"
-    container_name: peregrine-service
+  peregrine:
+    image: "quay.io/cdis/peregrine:1.0.2"
+    command: bash /peregrine_setup.sh
     networks:
       - devnet
     volumes:
       - ./apis_configs/peregrine_settings.py:/var/www/peregrine/wsgi.py
       - ./apis_configs/peregrine_creds.json:/var/www/peregrine/creds.json
-      - ./apis_configs/config_helper.py:/var/www/peregrine/config_helper.py
+      - ./apis_configs/config_helper.py:/var/www/peregrine/config_helper.py 
       - ./temp_creds/service.crt:/usr/local/share/ca-certificates/cdis-ca.crt
       - ./scripts/peregrine_setup.sh:/peregrine_setup.sh
       - ./example-schemas:/schemas_dir
@@ -60,25 +49,22 @@ services:
       REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
     depends_on:
       - postgres
-      - sheepdog-service
-  sheepdog-service:
+  sheepdog:
     image: "quay.io/cdis/sheepdog:master"
     command: bash /sheepdog_setup.sh
-    container_name: sheepdog-service
     networks:
       - devnet
     volumes:
       - ./apis_configs/sheepdog_settings.py:/var/www/sheepdog/wsgi.py
       - ./apis_configs/sheepdog_creds.json:/var/www/sheepdog/creds.json
-      - ./apis_configs/config_helper.py:/var/www/sheepdog/config_helper.py
+      - ./apis_configs/config_helper.py:/var/www/sheepdog/config_helper.py 
       - ./scripts/sheepdog_setup.sh:/sheepdog_setup.sh
       - ./example-schemas:/schemas_dir
     environment: *env
     depends_on:
       - postgres
-  portal-service:
-    image: "quay.io/cdis/data-portal:master"
-    container_name: portal-service
+  dataportal:
+    image: "quay.io/cdis/data-portal:2.0.1"
     command: ["bash", "/var/www/data-portal/waitForContainers.sh"]
     networks:
       - devnet
@@ -88,14 +74,13 @@ services:
       - NODE_ENV=dev
       - MOCK_STORE=true
       - APP=dev
-      - GDC_SUBPATH=http://revproxy-service/api/v0/submission/
+      - GDC_SUBPATH=http://nginx/api/v0/submission/
     depends_on:
       - postgres
-      - peregrine-service
-      - sheepdog-service
-  revproxy-service:
+      - peregrine
+      - sheepdog
+  nginx:
     image: "nginx:1.14"
-    container_name: revproxy-service
     networks:
       - devnet
     volumes:
@@ -106,12 +91,34 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - indexd-service
-      - peregrine-service
-      - sheepdog-service
-      - fence-service
-      - portal-service
-networks:
-  devnet:
+      - indexd
+      - peregrine
+      - sheepdog
+      - fence
+      - dataportal
+  coremetadata:
+    image: "quay.io/cdis/pidgin:master"
+    command: bash /pidgin_setup.sh
+    networks:
+      - devnet
+    volumes:
+      - ./apis_configs/pidgin_settings.py:/pidgin/wsgi.py
+      - ./scripts/pidgin_setup.sh:/pidgin_setup.sh
+    environment: *env
+    depends_on:
+      - postgres
+
+
+  postgres:
+    image: postgres:9.5
+    networks:
+      - devnet
+    volumes:
+      - "psqldata:/var/lib/postgresql/data"
+      - "./scripts/postgres_init.sql:/docker-entrypoint-initdb.d/postgres_init.sql"
+    restart: unless-stopped
+    
 volumes:
   psqldata:
+networks:
+  devnet:
