@@ -15,7 +15,7 @@ config["INTERNAL_AUTH"] = None
 
 # Signpost
 config['SIGNPOST'] = {
-    'host': environ.get('SIGNPOST_HOST', 'http://indexd-service'),
+    'host': environ.get('SIGNPOST_HOST', 'INDEXD_HOST'),
     'version': 'v0',
     'auth': ('gdcapi', conf_data.get( 'indexd_password', '{{indexd_password}}')),
 }
