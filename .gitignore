@@ -1,3 +1,4 @@
 temp*/
+api_configs/env.properties
 api_configs/*.bak
 api_configs/fend_creds.json
