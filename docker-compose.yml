@@ -1,7 +1,7 @@
 version: '3'
 services:
   indexd:
-    image: "quay.io/cdis/indexd:master"
+    image: "wuyesunwj/icdc-indexd:baseline"
     command: bash indexd_setup.sh
     networks:
       - devnet
@@ -13,7 +13,7 @@ services:
     depends_on:
       - postgres
   fence:
-    image: "quay.io/cdis/fence:master"
+    image: "wuyesunwj/icdc-fence:baseline"
     command: bash /var/www/fence/fence_setup.sh
     networks:
       - devnet
@@ -30,7 +30,7 @@ services:
     depends_on:
       - postgres
   peregrine:
-    image: "quay.io/cdis/peregrine:1.0.2"
+    image: "wuyesunwj/icdc-peregrine:baseline"
     command: bash /peregrine_setup.sh
     networks:
       - devnet
@@ -48,7 +48,7 @@ services:
     depends_on:
       - postgres
   sheepdog:
-    image: "quay.io/cdis/sheepdog:master"
+    image: "wuyesunwj/icdc-sheepdog:baseline"
     command: bash /sheepdog_setup.sh
     networks:
       - devnet
@@ -62,7 +62,7 @@ services:
     depends_on:
       - postgres
   dataportal:
-    image: "quay.io/cdis/data-portal:2.0.1"
+    image: "wuyesunwj/icdc-dataportal:baseline"
     command: ["bash", "/var/www/data-portal/waitForContainers.sh"]
     networks:
       - devnet
@@ -95,7 +95,7 @@ services:
       - fence
       - dataportal
   coremetadata:
-    image: "quay.io/cdis/pidgin:master"
+    image: "wuyesunwj/icdc-pidgin:baseline"
     command: bash /pidgin_setup.sh
     networks:
       - devnet
