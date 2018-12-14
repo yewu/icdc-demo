@@ -1,1 +1,3 @@
 temp*/
+api_configs/*.bak
+api_configs/fend_creds.json
