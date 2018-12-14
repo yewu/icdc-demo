@@ -1,4 +1,10 @@
 temp*/
 api_configs/env.properties
-api_configs/*.bak
-api_configs/fend_creds.json
+api_configs/*bak
+api_configs/fence_credentials.json
+api_configs/fence_creds.json
+api_configs/fence_settings.py
+api_configs/peregrine_creds.json
+api_configs/peregrine_settings.py
+api_configs/sheepdog_creds.json
+api_configs/sheepdog_settings.py
