@@ -30,12 +30,13 @@ services:
     depends_on:
       - postgres
   peregrine:
-    image: "wuyesunwj/icdc-peregrine:baseline"
+    image: "wuyesunwj/icdc-peregrine:1.0"
     command: bash /peregrine_setup.sh
     networks:
       - devnet
     volumes:
       - ./apis_configs/peregrine_settings.py:/var/www/peregrine/wsgi.py
+      - ./apis_configs/peregrine_settings.py:/var/run/gen3/wsgi.py
       - ./apis_configs/peregrine_creds.json:/var/www/peregrine/creds.json
       - ./apis_configs/config_helper.py:/var/www/peregrine/config_helper.py 
       - ./temp_creds/service.crt:/usr/local/share/ca-certificates/cdis-ca.crt

@@ -44,11 +44,11 @@ config['OAUTH2'] = {
         'scope': 'openid data user',
     },
     # deprecated key values, should be removed after all commons use new oidc
-    'internal_oauth_provider': 'http://fence-service/oauth2/',
+    'internal_oauth_provider': 'http://fence/oauth2/',
     'oauth_provider': 'https://%s/user/oauth2/' % conf_data['hostname'],
     'redirect_uri': 'https://%s/api/v0/oauth2/authorize'  % conf_data['hostname']
 }
-config['USER_API'] = 'http://fence-service/'
+config['USER_API'] = 'http://fence/'
 
 if environ.get('DICTIONARY_URL'):
     config['DICTIONARY_URL'] = environ.get('DICTIONARY_URL')
