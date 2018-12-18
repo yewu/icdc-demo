@@ -49,7 +49,7 @@ services:
     depends_on:
       - postgres
   sheepdog:
-    image: "wuyesunwj/icdc-sheepdog:baseline"
+    image: "wuyesunwj/icdc-sheepdog:1.0"
     command: bash /sheepdog_setup.sh
     networks:
       - devnet

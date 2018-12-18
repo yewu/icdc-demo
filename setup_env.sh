@@ -29,6 +29,7 @@ cp ./apis_configs/fence_credentials.json.template ./apis_configs/fence_credentia
 sed -i -e "s/AWS_ACCESS_KEY_ID/${AWS_ACCESS_KEY_ID}/g" ./apis_configs/fence_credentials.json
 sed -i -e "s/AWS_SECRET_ACCESS_KEY/${AWS_SECRET_ACCESS_KEY}/g" ./apis_configs/fence_credentials.json
 sed -i -e "s/S3_BUCKET_NAME/${S3_BUCKET_NAME}/g" ./apis_configs/fence_credentials.json
+sed -i -e "s/AWS_ROLE_ARN/${AWS_ROLE_ARN}/g" ./apis_configs/fence_credentials.json
 
 cp ./apis_configs/fence_settings.py ./apis_configs/fence_settings.py.bak
 cp ./apis_configs/fence_settings.py.template ./apis_configs/fence_settings.py
