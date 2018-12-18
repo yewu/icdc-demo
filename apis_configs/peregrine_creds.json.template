@@ -8,5 +8,5 @@
   "db_password": "peregrine_pass",
   "db_database": "metadata_db",
   "gdcapi_secret_key": "1JMWnHdApSGMJ8OIqA0IwWUEo8nJ1NJqwDQbjrz5L5v1QtW2ke",
-  "hostname": "ICGCHOST"
+  "hostname": "ICDCHOST"
 }
