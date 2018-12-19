@@ -9,5 +9,5 @@ Compose-Services Installation Guide -- Additional steps
   - Generate Google API keys and setup Google + API and Goolge APIfor Fence
   - Setting up users
 
-
+  - make sure add the role according to step 4: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html
 
