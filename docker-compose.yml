@@ -63,7 +63,7 @@ services:
     depends_on:
       - postgres
   dataportal:
-    image: "wuyesunwj/icdc-dataportal:baseline"
+    image: "wuyesunwj/icdc-dataportal:1.0"
     command: ["bash", "/var/www/data-portal/waitForContainers.sh"]
     networks:
       - devnet
