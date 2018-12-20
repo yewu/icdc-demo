@@ -9,23 +9,4 @@ users:
     admin: True
     projects:
     - auth_id: icdc_demo
-      privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
-    - auth_id: test
-      privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
-  wuye@mail.nih.gov:
-    admin: True
-    projects:
-    - auth_id: ICDC_Demo
-      privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
-    - auth_id: jenkins
-      privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
-    projects:
-    - auth_id: DEV
-      privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
-    - auth_id: project1
-      privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
-    projects:
-    - auth_id: QA
-      privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
-    - auth_id: project1
-      privilege: ['create', 'read', 'update', 'delete', 'upload', read-storage]
+      privilege: ['create', 'read', 'update', 'delete', 'upload', 'read-storage']
